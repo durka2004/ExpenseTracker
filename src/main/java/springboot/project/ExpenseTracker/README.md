@@ -1,158 +1,75 @@
-📊 Expense Tracker – Spring Boot + PostgreSQL
+# 📊 Expense Tracker – Spring Boot Backend
 
-A simple and efficient Expense Tracking REST API built with Spring Boot, Spring Data JPA, and PostgreSQL.
-This project allows users to create categories, add expenses, fetch expense summaries, and track spending with clean API design, proper validations, and JPA auditing.
-
-🚀 Features
-
-Add custom Categories
-
-Add Expenses linked to categories
-
-Validate inputs using Jakarta Validation
-
-Get expense details by ID
-
-Fetch expenses by Category
-
-Monthly expense summary (Auto-calculation)
-
-Global exception handling
-
-Auto timestamps using JPA Auditing
-
-Uses DTOs and Mapper for clean architecture
-
-🛠 Tech Stack
-
-Java 17+
-
-Spring Boot 3.x
-
-Spring Web
-
-Spring Data JPA + Hibernate
-
-PostgreSQL
-
-Lombok
-
-Jakarta Validation
-
-📂 Project Structure
-src/main/java/com/example/expensetracker
-│
-├── config
-│   └── JpaAuditingConfig.java
-│
-├── controller
-│   ├── ExpenseController.java
-│   └── CategoryController.java
-│
-├── dto
-│   ├── ExpenseRequestDto.java
-│   ├── ExpenseResponseDto.java
-│   └── CategoryDto.java
-│
-├── entity
-│   ├── BaseEntity.java
-│   ├── Expense.java
-│   └── Category.java
-│
-├── exception
-│   ├── ResourceNotFoundException.java
-│   └── GlobalExceptionHandler.java
-│
-├── mapper
-│   └── ExpenseMapper.java
-│
-├── repository
-│   ├── ExpenseRepository.java
-│   └── CategoryRepository.java
-│
-└── service
-├── ExpenseService.java
-├── ExpenseServiceImpl.java
-└── CategoryService.java
-
-⚙️ Setup Instructions
-1️⃣ Clone the project
-git clone https://github.com/durka-2004/expense-tracker.git
-cd expense-tracker
-
-2️⃣ Configure PostgreSQL in application.properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/expensetracker
-spring.datasource.username=postgres
-spring.datasource.password=yourpassword
-
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-
-3️⃣ Run the application
-mvn spring-boot:run
+A backend system for managing personal expenses with categories, monthly summaries, validation, auditing timestamps, and custom exceptions. Users can create categories, add expenses, filter by category, and view monthly totals.
 
 
-Server starts at:
 
-http://localhost:8080
+## 🧰 Tech Stack
 
-🧾 API Endpoints
-Category APIs
-Method	Endpoint	Description
-POST	/categories	Create a new category
-GET	/categories	Fetch all categories
-Expense APIs
-Method	Endpoint	Description
-POST	/expenses	Create an expense
-GET	/expenses/{id}	Get expense by ID
-GET	/expenses/category/{id}	Get expenses by category
-GET	/expenses/summary?year=2025&month=2	Monthly summary
-🔗 Sample API Calls
-➕ Create Category
-{
-"name": "Food"
-}
+* Java 21
+* Spring Boot 3
+* Spring Data JPA
+* PostgreSQL
+* Hibernate
+* Auditing (@CreatedDate, @LastModifiedDate)
+* Lombok
+* Maven
+* Postman for API Testing
 
-➕ Create Expense
-{
-"title": "Dinner at KFC",
-"description": "Food with friends",
-"amount": 350.50,
-"categoryId": 1
-}
 
-📅 Monthly Summary
-GET /expenses/summary?year=2025&month=2
 
-🧪 Validation & Error Handling
+## 🚀 Features
 
-Missing fields → 400 BAD REQUEST
+* *✅ Categories :* Add new categories (e.g., Food, Travel, Shopping) Fetch all categories Validations for category name
+* *✅ Expenses   :* Create expenses with: title description amount category Fetch expenses by ID Filter expenses by category Monthly summary calculation DTO-based request/response Validation using @Valid
+* *✅ System-Level Features :* JPA Auditing (createdAt, updatedAt, active flag) Global Exception Handling Custom Exception (ResourceNotFoundException)
 
-Invalid category/expense → 404 NOT FOUND
 
-All validation errors returned in field → message format
 
-Example:
+## *Layered architecture:*
 
-{
-"title": "Title is required",
-"amount": "Amount must be positive"
-}
+* Controller
+* Service
+* Repository
+* Entity
+* DTO
+* Mapper
 
-📦 JPA Auditing
 
-Every entity includes:
 
-createdAt
+## 📦 How to Run
 
-updatedAt
+1. Clone the repository:
+   bash
+   git clone https://github.com/durka2004/ExpenseTracker.git
+2. Create a PostgreSQL database: (e.g., `CREATE DATABASE expense\_tracker\_db;`)
+3. Copy `application-example.properties` (if exists) to `application.properties` and update DB credentials
+4. Start the Application:
+   bash
+   mvn spring-boot:run
 
-active (default true)
+## 🧪 Testing using Postman
 
-Enabled via:
+Sample request for creating an expense:
 
-@EnableJpaAuditing
+      {
+         "title" : "Dinner",
+         "description": "KFC food",
+         "amount" : 550,
+         "categoryId" : 1
+      }
 
-🤝 Contributing
+## 📝 Notes
 
-Feel free to fork this project and submit pull requests!
+* No sensitive credentials are uploaded.
+* Errors handled through a global exception handler.
+
+#### DTOs include validations using:
+* &nbsp;	@NotBlank
+* &nbsp;	@NotNull
+* &nbsp;	@DecimalMin
+
+#### BaseEntity includes:
+* &nbsp;	createdAt
+* &nbsp;	updatedAt
+* &nbsp;	active flag
