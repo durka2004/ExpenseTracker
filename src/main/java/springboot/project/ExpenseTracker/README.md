@@ -40,12 +40,12 @@ A backend system for managing personal expenses with categories, monthly summari
 ## 📦 How to Run
 
 1. Clone the repository:
-   bash
+```  bash
    git clone https://github.com/durka2004/ExpenseTracker.git
 2. Create a PostgreSQL database: (e.g., `CREATE DATABASE expense\_tracker\_db;`)
 3. Copy `application-example.properties` (if exists) to `application.properties` and update DB credentials
 4. Start the Application:
-   bash
+  ``` bash
    mvn spring-boot:run
 
 ## 🧪 Testing using Postman
